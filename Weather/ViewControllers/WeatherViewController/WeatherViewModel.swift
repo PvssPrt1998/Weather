@@ -39,7 +39,7 @@ final class WeatherViewModel {
     func getBackgroundTitle() -> String {
         guard let weatherData = weatherData else { return ImageAssetsTitles.DayBackground.rawValue }
         if (weatherData.dt > weatherData.sys.sunset && weatherData.dt > weatherData.sys.sunrise)
-            || (weatherData.dt < weatherData.sys.sunset) {
+            || (weatherData.dt < weatherData.sys.sunset && weatherData.dt < weatherData.sys.sunrise) {
             return ImageAssetsTitles.NightBackground.rawValue
         } else {
             return ImageAssetsTitles.DayBackground.rawValue
