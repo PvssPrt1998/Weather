@@ -120,7 +120,7 @@ final class WeatherViewController: UIViewController {
     }
     
     private func configureCityLabel() {
-        cityLabel.text = viewModel.getCity().city
+        cityLabel.text = viewModel.getCity()
         weatherStackView.addArrangedSubview(cityLabel)
     }
     

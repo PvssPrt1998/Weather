@@ -20,6 +20,6 @@ final class ViewModelFactory {
     }
     
     func makeCitiesViewModel() -> CitiesViewModel {
-        .init()
+        .init(dataManager: dataManager)
     }
 }

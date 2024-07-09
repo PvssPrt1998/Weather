@@ -10,43 +10,30 @@ import Foundation
 final class WeatherViewModel {
     
     private var weatherData: WeatherData?
-    
-    var city: Cities = .londonGB
     let dataManager: DataManager
     private var notificationName: String?
     
     init(dataManager: DataManager) {
         self.dataManager = dataManager
-//        
-//        remoteDataManager.onCompletion = { [weak self] weatherData in
-//            self?.weatherData = weatherData
-//            guard let notificationName = self?.notificationName else { return }
-//            NotificationCenter.default.post(name: Notification.Name(notificationName), object: nil)
-//        }
-//        remoteDataManager.fetchWeather(by: city)
         
         dataManager.fetchWeather { [weak self] weatherData in
             self?.weatherData = weatherData
             guard let notificationName = self?.notificationName else { return }
             NotificationCenter.default.post(name: Notification.Name(notificationName), object: nil)
         }
-        
+    }
+    
+    func getCity() -> String {
+        dataManager.city.name
     }
     
     func getTemp() -> String? {
         guard let weatherData = weatherData else { return nil }
-        let date = Date(timeIntervalSince1970: TimeInterval(weatherData.dt))
         return "\(Int(weatherData.main.temp))°"
     }
     
     func setNotificationName(_ name: String) {
         notificationName = name
-    }
-    
-    func getCity() -> City {
-        switch city {
-            case .londonGB: City(country: "GB", state: "England", city: "London")
-        }
     }
     
     func getBackgroundTitle() -> String {

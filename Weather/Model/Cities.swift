@@ -7,12 +7,9 @@
 
 import Foundation
 
-enum Cities {
-    case londonGB
-}
+typealias CityList = [City]
 
-struct City: Equatable {
+struct City: Equatable, Codable {
     let country: String
-    let state: String
-    let city: String
+    let name: String
 }

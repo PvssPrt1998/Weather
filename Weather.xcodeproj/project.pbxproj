@@ -39,6 +39,10 @@
 		99C49C752C3CC19500EB4497 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49C742C3CC19500EB4497 /* DataManager.swift */; };
 		99C49C772C3CC76F00EB4497 /* CitiesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49C762C3CC76E00EB4497 /* CitiesCoordinator.swift */; };
 		99C49C792C3CCCCA00EB4497 /* ModalPresentationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49C782C3CCCCA00EB4497 /* ModalPresentationRouter.swift */; };
+		99C49C7B2C3CF19400EB4497 /* TextFieldInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49C7A2C3CF19400EB4497 /* TextFieldInsets.swift */; };
+		99C49C802C3CF49100EB4497 /* TrieNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49C7F2C3CF49100EB4497 /* TrieNode.swift */; };
+		99C49C822C3CF67D00EB4497 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C49C812C3CF67D00EB4497 /* Trie.swift */; };
+		99C49C8A2C3D061C00EB4497 /* CitiesJson.json in Resources */ = {isa = PBXBuildFile; fileRef = 99C49C892C3D061B00EB4497 /* CitiesJson.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +79,10 @@
 		99C49C742C3CC19500EB4497 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		99C49C762C3CC76E00EB4497 /* CitiesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesCoordinator.swift; sourceTree = "<group>"; };
 		99C49C782C3CCCCA00EB4497 /* ModalPresentationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationRouter.swift; sourceTree = "<group>"; };
+		99C49C7A2C3CF19400EB4497 /* TextFieldInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldInsets.swift; sourceTree = "<group>"; };
+		99C49C7F2C3CF49100EB4497 /* TrieNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrieNode.swift; sourceTree = "<group>"; };
+		99C49C812C3CF67D00EB4497 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
+		99C49C892C3D061B00EB4497 /* CitiesJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CitiesJson.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +121,7 @@
 				99C49C712C3CBF2000EB4497 /* CoordinatorFactory.swift */,
 				99C49C562C3C901F00EB4497 /* ViewControllerFactory.swift */,
 				99C49C522C3C8DA600EB4497 /* ViewModelFactory.swift */,
+				99C49C7C2C3CF2A800EB4497 /* Trie */,
 				99C49C732C3CC18600EB4497 /* DataManager */,
 				99C49C672C3CBC8200EB4497 /* Navigation */,
 				99C49C4F2C3C8CDE00EB4497 /* ViewControllers */,
@@ -128,6 +137,7 @@
 		99C49C3A2C38A15E00EB4497 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				99C49C892C3D061B00EB4497 /* CitiesJson.json */,
 				99C49C4B2C38A6AF00EB4497 /* Cities.swift */,
 				99C49C3B2C38A17300EB4497 /* WeatherData.swift */,
 				99C49C3D2C38A27500EB4497 /* Clouds.swift */,
@@ -163,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				99C49C5C2C3CA1D400EB4497 /* ImageAssetsTitles.swift */,
+				99C49C7A2C3CF19400EB4497 /* TextFieldInsets.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -240,6 +251,15 @@
 			path = DataManager;
 			sourceTree = "<group>";
 		};
+		99C49C7C2C3CF2A800EB4497 /* Trie */ = {
+			isa = PBXGroup;
+			children = (
+				99C49C7F2C3CF49100EB4497 /* TrieNode.swift */,
+				99C49C812C3CF67D00EB4497 /* Trie.swift */,
+			);
+			path = Trie;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -306,6 +326,7 @@
 			files = (
 				99C49C292C3860DB00EB4497 /* Assets.xcassets in Resources */,
 				99C49C2C2C3860DB00EB4497 /* Base in Resources */,
+				99C49C8A2C3D061C00EB4497 /* CitiesJson.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,8 +337,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99C49C822C3CF67D00EB4497 /* Trie.swift in Sources */,
 				99C49C4C2C38A6AF00EB4497 /* Cities.swift in Sources */,
 				99C49C402C38A28900EB4497 /* Coord.swift in Sources */,
+				99C49C802C3CF49100EB4497 /* TrieNode.swift in Sources */,
 				99C49C242C3860D900EB4497 /* WeatherViewController.swift in Sources */,
 				99C49C792C3CCCCA00EB4497 /* ModalPresentationRouter.swift in Sources */,
 				99C49C772C3CC76F00EB4497 /* CitiesCoordinator.swift in Sources */,
@@ -333,6 +356,7 @@
 				99C49C202C3860D900EB4497 /* AppDelegate.swift in Sources */,
 				99C49C3E2C38A27500EB4497 /* Clouds.swift in Sources */,
 				99C49C602C3CB94E00EB4497 /* CitiesViewController.swift in Sources */,
+				99C49C7B2C3CF19400EB4497 /* TextFieldInsets.swift in Sources */,
 				99C49C722C3CBF2100EB4497 /* CoordinatorFactory.swift in Sources */,
 				99C49C752C3CC19500EB4497 /* DataManager.swift in Sources */,
 				99C49C512C3C8CF300EB4497 /* WeatherViewModel.swift in Sources */,

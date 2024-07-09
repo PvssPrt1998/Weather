@@ -14,7 +14,7 @@ final class RemoteDataManager {
     
     var onCompletion: ((WeatherData) -> Void)?
     
-    func fetchWeather(by city: Cities) {
+    func fetchWeather(by city: City) {
         fetchCoordinates(by: city) { [weak self] location in
             guard let self = self else { return }
             let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(location.lat)&lon=\(location.lon)&appid=\(apiKey)&units=metric"
@@ -28,15 +28,8 @@ final class RemoteDataManager {
         }
     }
     
-    func getCity(_ city: Cities) -> City {
-        switch city {
-            case .londonGB: City(country: "GB", state: "England", city: "London")
-        }
-    }
-    
-    private func fetchCoordinates(by city: Cities, completion: @escaping (Location) -> Void) {
-        let city = getCity(city)
-        let url = "https://api.openweathermap.org/geo/1.0/direct?q=\(city.city),\(city.state),\(city.country)&limit=1&appid=\(apiKey)"
+    private func fetchCoordinates(by city: City, completion: @escaping (Location) -> Void) {
+        let url = "https://api.openweathermap.org/geo/1.0/direct?q=\(city.name),\(city.country)&limit=1&appid=\(apiKey)"
         AF.request(url).responseDecodable(of: Locations.self) { response in
             guard let locations = response.value else { return }
             locations.forEach { location in
