@@ -18,7 +18,6 @@ final class RemoteDataManager {
         fetchCoordinates(by: city) { [weak self] location in
             guard let self = self else { return }
             let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(location.lat)&lon=\(location.lon)&appid=\(apiKey)&units=metric"
-            print("beforeFetched")
             AF.request(url).responseDecodable(of: WeatherData.self) { response in
 //                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
 //                        print("Data: \(utf8Text)")
@@ -41,7 +40,6 @@ final class RemoteDataManager {
         AF.request(url).responseDecodable(of: Locations.self) { response in
             guard let locations = response.value else { return }
             locations.forEach { location in
-                print(location.lat)
                 completion(location)
             }
         }

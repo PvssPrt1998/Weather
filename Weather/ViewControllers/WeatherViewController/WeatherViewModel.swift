@@ -12,19 +12,25 @@ final class WeatherViewModel {
     private var weatherData: WeatherData?
     
     var city: Cities = .londonGB
-    
-    let remoteDataManager: RemoteDataManager
+    let dataManager: DataManager
     private var notificationName: String?
     
-    init(remoteDataManager: RemoteDataManager) {
-        self.remoteDataManager = remoteDataManager
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
+//        
+//        remoteDataManager.onCompletion = { [weak self] weatherData in
+//            self?.weatherData = weatherData
+//            guard let notificationName = self?.notificationName else { return }
+//            NotificationCenter.default.post(name: Notification.Name(notificationName), object: nil)
+//        }
+//        remoteDataManager.fetchWeather(by: city)
         
-        remoteDataManager.onCompletion = { [weak self] weatherData in
+        dataManager.fetchWeather { [weak self] weatherData in
             self?.weatherData = weatherData
             guard let notificationName = self?.notificationName else { return }
             NotificationCenter.default.post(name: Notification.Name(notificationName), object: nil)
         }
-        remoteDataManager.fetchWeather(by: city)
+        
     }
     
     func getTemp() -> String? {

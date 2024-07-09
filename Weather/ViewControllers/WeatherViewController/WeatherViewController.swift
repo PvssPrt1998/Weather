@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol WeatherViewControllerNavigationDelegate: AnyObject {
+    func cityButtonPressed(_ parentViewController: WeatherViewController)
+}
+
 final class WeatherViewController: UIViewController {
+    
+    weak var delegate: WeatherViewControllerNavigationDelegate?
     
     let cityLabel: UILabel = {
         let label = UILabel()
@@ -50,21 +56,22 @@ final class WeatherViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-//
-//    let button1: UIButton = {
-//        let button = UIButton()
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        var configuration = UIButton.Configuration.plain()
-//        configuration.title = "Buttonweather"
-//        button.configuration = configuration
-//        return button
-//    }()
+
+    let changeCityButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        var configuration = UIButton.Configuration.plain()
+        configuration.baseForegroundColor = .white
+        configuration.image = UIImage(systemName: "location.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32))
+        button.configuration = configuration
+        return button
+    }()
     
     var viewModel: WeatherViewModel
-    var remoteManager = RemoteDataManager()
     
-    init(viewModel: WeatherViewModel) {
+    init(viewModel: WeatherViewModel, delegate: WeatherViewControllerNavigationDelegate) {
         self.viewModel = viewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -89,8 +96,7 @@ final class WeatherViewController: UIViewController {
         setViewBackgroundWith(imageTitle: viewModel.getBackgroundTitle(), animated: false)
         configureBackgroundView()
         configureWeatherStackView()
-//        configureCityLabel()
-//        configureTempLabel()
+        configureChangeCityButton()
     }
     
     private func configureWeatherStackView() {
@@ -131,6 +137,20 @@ final class WeatherViewController: UIViewController {
         weatherTypeLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
         weatherTypeLabel.layer.masksToBounds = false
         weatherStackView.addArrangedSubview(weatherTypeLabel)
+    }
+    
+    private func configureChangeCityButton() {
+        view.addSubview(changeCityButton)
+        changeCityButton.addTarget(self, action: #selector(changeCityButtonAction), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: changeCityButton.bottomAnchor, constant: 20),
+            view.layoutMarginsGuide.trailingAnchor.constraint(equalTo: changeCityButton.trailingAnchor, constant: 20)
+        ])
+    }
+    
+    @objc private func changeCityButtonAction() {
+        delegate?.cityButtonPressed(self)
     }
     
     @objc private func updateInterface() {

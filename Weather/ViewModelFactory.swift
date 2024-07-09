@@ -8,14 +8,18 @@
 import Foundation
 
 final class ViewModelFactory {
+
+    let dataManager: DataManager
     
-    let remoteDataManager: RemoteDataManager
-    
-    init(remoteDataManager: RemoteDataManager) {
-        self.remoteDataManager = remoteDataManager
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
     }
     
     func makeWeatherViewModel() -> WeatherViewModel {
-        .init(remoteDataManager: remoteDataManager)
+        .init(dataManager: dataManager)
+    }
+    
+    func makeCitiesViewModel() -> CitiesViewModel {
+        .init()
     }
 }

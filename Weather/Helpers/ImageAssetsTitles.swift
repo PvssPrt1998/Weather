@@ -10,4 +10,5 @@ import Foundation
 enum ImageAssetsTitles: String {
     case NightBackground
     case DayBackground
+    case LocationButton
 }

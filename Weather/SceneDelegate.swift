@@ -10,15 +10,21 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var coordinatorFactory: CoordinatorFactory?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        
-        
-        let viewModelFactory = ViewModelFactory(remoteDataManager: RemoteDataManager())
-        window?.rootViewController = WeatherViewController(viewModel: viewModelFactory.makeWeatherViewModel())
-        window?.makeKeyAndVisible()
+        guard let window = window else { return }
+        coordinatorFactory = 
+            .init(router:
+                    NavigationRouter(window: window),
+                        viewControllerFactory:
+                            .init(viewModelFactory:
+                                    .init(dataManager:
+                                            DataManager(remoteDataManager:
+                                                            RemoteDataManager()))))
+        coordinatorFactory?.makeWeatherCoordinator().present(animated: true, onDismissed: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

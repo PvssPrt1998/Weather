@@ -15,7 +15,11 @@ final class ViewControllerFactory {
         self.viewModelFactory = viewModelFactory
     }
     
-    func makeWeahterViewController() -> WeatherViewController {
-        .init(viewModel: viewModelFactory.makeWeatherViewModel())
+    func makeWeahterViewController(delegate: WeatherViewControllerNavigationDelegate) -> WeatherViewController {
+        .init(viewModel: viewModelFactory.makeWeatherViewModel(), delegate: delegate)
+    }
+    
+    func makeCitiesViewController(delegate: CitiesViewControllerNavigationDelegate) -> CitiesViewController {
+        .init(viewModel: viewModelFactory.makeCitiesViewModel(), delegate: delegate)
     }
 }
