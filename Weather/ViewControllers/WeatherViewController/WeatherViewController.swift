@@ -162,6 +162,7 @@ final class WeatherViewController: UIViewController {
                 self.backgroundView.image = UIImage(named: self.viewModel.getBackgroundTitle())
             }
             self.cityLabel.text = self.viewModel.getCity()
+            self.cityLabel.textColor = self.viewModel.isNight() ? .white : .black
             self.configureTempLabel()
             self.configureWeatherTypeLabel()
         }
