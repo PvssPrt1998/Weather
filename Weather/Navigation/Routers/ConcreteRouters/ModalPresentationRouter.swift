@@ -21,12 +21,12 @@ final class ModalPresentationRouter: NSObject, Router {
     
     func present(_ viewController: UIViewController, animated: Bool, onDismissed: (() -> Void)?) {
         onDismiss = onDismissed
+        viewController.modalPresentationStyle = .overFullScreen
         viewController.presentationController?.delegate = self
         parentViewController.present(viewController, animated: animated)
     }
     
     func dismiss(animated: Bool) {
-        
         guard let onDismiss = onDismiss else { return }
         onDismiss()
         self.onDismiss = nil

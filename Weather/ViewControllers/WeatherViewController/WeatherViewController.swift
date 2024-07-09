@@ -19,7 +19,6 @@ final class WeatherViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 34)
         return label
     }()
@@ -28,7 +27,6 @@ final class WeatherViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 96, weight: .thin)
         return label
     }()
@@ -121,11 +119,13 @@ final class WeatherViewController: UIViewController {
     
     private func configureCityLabel() {
         cityLabel.text = viewModel.getCity()
+        cityLabel.textColor = viewModel.isNight() ? .white : .black
         weatherStackView.addArrangedSubview(cityLabel)
     }
     
     private func configureTempLabel() {
         tempLabel.text = viewModel.getTemp()
+        tempLabel.textColor = viewModel.isNight() ? .white : .black
         weatherStackView.addArrangedSubview(tempLabel)
     }
     
@@ -151,14 +151,12 @@ final class WeatherViewController: UIViewController {
     
     @objc private func changeCityButtonAction() {
         delegate?.cityButtonPressed(self) { [weak self] in
-            print("completion")
             self?.viewModel.updateData()
         }
     }
     
     @objc private func updateInterface() {
-        print("interface")
-        view.layoutIfNeeded()
+        view.setNeedsLayout()
         DispatchQueue.main.async {
             UIView.transition(with: self.backgroundView, duration: 0.5, options: .transitionCrossDissolve) {
                 self.backgroundView.image = UIImage(named: self.viewModel.getBackgroundTitle())

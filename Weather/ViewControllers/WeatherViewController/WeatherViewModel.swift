@@ -19,7 +19,6 @@ final class WeatherViewModel {
     }
     
     func updateData() {
-        print("update")
         dataManager.fetchWeather { [weak self] weatherData in
             self?.weatherData = weatherData
             guard let notificationName = self?.notificationName else { return }

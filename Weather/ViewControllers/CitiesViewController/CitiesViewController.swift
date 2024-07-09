@@ -88,7 +88,7 @@ final class CitiesViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalPadding),
-            searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            searchTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalPadding),
             searchTextField.heightAnchor.constraint(equalToConstant: 40),
             
@@ -122,7 +122,6 @@ final class CitiesViewController: UIViewController {
 
 extension CitiesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(viewModel.filtered[indexPath.row])
         viewModel.rowSelected(indexPath.row)
         delegate?.dismissAction()
     }
@@ -137,7 +136,7 @@ extension CitiesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var config = cell.defaultContentConfiguration()
         cell.backgroundColor = .clear
-        config.textProperties.color = .white
+        config.textProperties.color = viewModel.isNight ? .white : .black
         config.text = viewModel.filtered[indexPath.row]
         cell.contentConfiguration = config
         return cell
