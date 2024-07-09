@@ -12,6 +12,7 @@ final class DataManager {
     
     let remoteDataManager: RemoteDataManager
     var city: City = City(country: "GB", name: "London")
+    var isNight: Bool = false
     
     let decoder = JSONDecoder()
     

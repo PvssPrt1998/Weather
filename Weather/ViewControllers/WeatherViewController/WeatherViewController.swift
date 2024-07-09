@@ -8,7 +8,7 @@
 import UIKit
 
 protocol WeatherViewControllerNavigationDelegate: AnyObject {
-    func cityButtonPressed(_ parentViewController: WeatherViewController)
+    func cityButtonPressed(_ parentViewController: WeatherViewController, onDismiss: @escaping ()->Void)
 }
 
 final class WeatherViewController: UIViewController {
@@ -150,14 +150,20 @@ final class WeatherViewController: UIViewController {
     }
     
     @objc private func changeCityButtonAction() {
-        delegate?.cityButtonPressed(self)
+        delegate?.cityButtonPressed(self) { [weak self] in
+            print("completion")
+            self?.viewModel.updateData()
+        }
     }
     
     @objc private func updateInterface() {
+        print("interface")
+        view.layoutIfNeeded()
         DispatchQueue.main.async {
             UIView.transition(with: self.backgroundView, duration: 0.5, options: .transitionCrossDissolve) {
                 self.backgroundView.image = UIImage(named: self.viewModel.getBackgroundTitle())
             }
+            self.cityLabel.text = self.viewModel.getCity()
             self.configureTempLabel()
             self.configureWeatherTypeLabel()
         }

@@ -15,7 +15,11 @@ final class WeatherViewModel {
     
     init(dataManager: DataManager) {
         self.dataManager = dataManager
-        
+        updateData()
+    }
+    
+    func updateData() {
+        print("update")
         dataManager.fetchWeather { [weak self] weatherData in
             self?.weatherData = weatherData
             guard let notificationName = self?.notificationName else { return }
@@ -36,12 +40,18 @@ final class WeatherViewModel {
         notificationName = name
     }
     
+    func isNight() -> Bool {
+        guard let weatherData = weatherData else { return false }
+        return (weatherData.dt > weatherData.sys.sunset && weatherData.dt > weatherData.sys.sunrise)
+            || (weatherData.dt < weatherData.sys.sunset && weatherData.dt < weatherData.sys.sunrise)
+    }
+    
     func getBackgroundTitle() -> String {
-        guard let weatherData = weatherData else { return ImageAssetsTitles.DayBackground.rawValue }
-        if (weatherData.dt > weatherData.sys.sunset && weatherData.dt > weatherData.sys.sunrise)
-            || (weatherData.dt < weatherData.sys.sunset && weatherData.dt < weatherData.sys.sunrise) {
+        if isNight() {
+            dataManager.isNight = true
             return ImageAssetsTitles.NightBackground.rawValue
         } else {
+            dataManager.isNight = false
             return ImageAssetsTitles.DayBackground.rawValue
         }
     }

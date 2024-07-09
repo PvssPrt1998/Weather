@@ -29,9 +29,9 @@ final class WeatherCoordinator: Coordinator {
 }
 
 extension WeatherCoordinator: WeatherViewControllerNavigationDelegate {
-    func cityButtonPressed(_ parentViewController: WeatherViewController) {
+    func cityButtonPressed(_ parentViewController: WeatherViewController, onDismiss: @escaping () -> Void) {
         guard let delegate = delegate else { return }
-        presentChild(delegate.makeCitiesCoordinator(parentViewController), animated: true)
+        presentChild(delegate.makeCitiesCoordinator(parentViewController), animated: true, onDismissed: onDismiss)
     }
 }
 

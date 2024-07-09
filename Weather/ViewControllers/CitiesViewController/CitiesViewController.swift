@@ -19,6 +19,7 @@ final class CitiesViewController: UIViewController {
     let searchTextField: UITextField = {
         let textField = TextField()
         textField.backgroundColor = .clear
+        textField.textColor = .white
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -62,8 +63,8 @@ final class CitiesViewController: UIViewController {
     private func configureView() {
         view.backgroundColor = .clear
         
-        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.dark))
-        let textFieldBlurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.light))
+        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: viewModel.isNight ? UIBlurEffect.Style.dark : UIBlurEffect.Style.light))
+        let textFieldBlurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: viewModel.isNight ? UIBlurEffect.Style.light : UIBlurEffect.Style.dark))
         textFieldBlurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(blurEffectView)
@@ -80,6 +81,7 @@ final class CitiesViewController: UIViewController {
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         citiesTableView.dataSource = self
+        citiesTableView.delegate = self
         citiesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         let horizontalPadding: CGFloat = 16
@@ -115,6 +117,14 @@ final class CitiesViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }
         }
+    }
+}
+
+extension CitiesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(viewModel.filtered[indexPath.row])
+        viewModel.rowSelected(indexPath.row)
+        delegate?.dismissAction()
     }
 }
 
